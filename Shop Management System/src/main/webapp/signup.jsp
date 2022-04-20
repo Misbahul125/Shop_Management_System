@@ -38,9 +38,15 @@
   	<%} %>
   	
   	<%
-  	if("invalid".equals(msg)) {
+  	if("somethingWrong".equals(msg)) {
   	%>
   	<h1>Something Went Wrong! Try Again !</h1>
+  	<%} %>
+  	
+  	<%
+  	if("userexists".equals(msg)) {
+  	%>
+  	<h1>User already exists !!</h1>
   	<%} %>
   	 
   	 
