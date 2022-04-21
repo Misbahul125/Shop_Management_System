@@ -41,7 +41,7 @@ try{
 		}
 		else {
 			c.close();
-			response.sendRedirect("signup.jsp?msg=notexist");
+			response.sendRedirect("login.jsp?msg=notexist");
 		}
 	}
 	catch(Exception e) {

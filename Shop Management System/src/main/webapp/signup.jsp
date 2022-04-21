@@ -22,7 +22,7 @@
   		</select>
   		<input type="text" name="securityAnswer" placeholder="Enter Security Answer" required>
   		
-  		<input type="submit" value="SignUp">
+  		<input type="submit" style="cursor:pointer" value="SignUp">
   	</form>
     
     <h2><a href="login.jsp">Login</a></h2>

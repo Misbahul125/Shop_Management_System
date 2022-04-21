@@ -45,7 +45,7 @@ try{
 		}
 		else {
 			try {
-				String q2 = "insert into users values(?,?,?,?,?,?,?,?,?,?)";
+				String q2 = "insert into users values(?,?,?,?,?,?,?,?,?,?,?)";
 				PreparedStatement ps = c.prepareStatement(q2);
 				
 				ps.setString(1, name);
@@ -60,23 +60,19 @@ try{
 				ps.setString(10, state);
 				ps.setString(11, country);
 				
-				boolean b = ps.execute();
-				//response.sendRedirect("signup.jsp?msg=valid");
+				ps.executeUpdate();
 				
-				if(b) {
-					session.setAttribute("user_type", userType);
-					c.close();
-					if(userType.matches(UserConstant.ADMIN_USER.toString())) {
-						response.sendRedirect("/admin/adminHome.jsp");
-					}
-					else {
-						response.sendRedirect("home.jsp");
-					}
+				session.setAttribute("user_type", userType);
+				c.close();
+				if(userType.matches(UserConstant.ADMIN_USER.toString())) {
+					response.sendRedirect("admin/adminHome.jsp");
 				}
 				else {
-					c.close();
-					response.sendRedirect("signup.jsp?msg=somethingWrong");
+					response.sendRedirect("home.jsp");
 				}
+				
+				//response.sendRedirect("signup.jsp?msg=valid");
+				
 			}
 			catch(Exception e) {
 				System.out.println(e.getMessage());

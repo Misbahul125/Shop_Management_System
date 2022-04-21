@@ -20,7 +20,7 @@ body {
 }
 .whysignLogin
 {
-	float: left;
+  float: left;
   background-color: white;
   width: 480px;
   height: 347px;
@@ -61,7 +61,7 @@ body {
   color: black;
 }
 
-[type=submit] {
+input[type=submit] {
   margin-top: 25px;
   width: 80%;
   border: 0;

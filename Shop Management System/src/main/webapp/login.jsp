@@ -12,7 +12,7 @@
   		<input type="email" name="email" placeholder="Enter Email" required>
   		<input type="password" name="password" placeholder="Enter Password" required>
   		
-  		<input type="submit" value="Login">
+  		<input type="submit" style="cursor:pointer" value="Login">
   	</form>
   		
   	<h2><a href="signup.jsp">SignUp</a></h2>

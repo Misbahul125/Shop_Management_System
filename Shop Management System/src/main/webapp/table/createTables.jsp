@@ -1,12 +1,13 @@
 <%@page import="project.ConnectionProvider"%>
 <%@page import="java.sql.*"%>
 <%
+Connection c = null;
 try
 {
-	Connection c = ConnectionProvider.getConnectionProvider();
+	c = ConnectionProvider.getConnectionProvider();
 	Statement s = c.createStatement();
 	
-	String q1 = "create table users(name varchar(100),email varchar(100) primary key,mobileNumber bigint,securityQuestion varchar(200),securityAnswer varchar(200),password varchar(100),address varchar(500),city varchar(100),state varchar(100),country varchar(100))";
+	String q1 = "create table users(name varchar(50),mobileNumber bigint,email varchar(25) primary key,password varchar(15),userType varchar(15),securityQuestion varchar(100),securityAnswer varchar(50),address varchar(100),city varchar(30),state varchar(30),country varchar(30))";
 	
 	System.out.println(q1);
 	s.execute(q1);
@@ -16,5 +17,6 @@ try
 catch(Exception e)
 {
 	System.out.println(e.getMessage());
+	c.close();
 }
 %>

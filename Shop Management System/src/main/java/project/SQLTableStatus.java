@@ -4,20 +4,25 @@ import java.sql.*;
 
 public class SQLTableStatus {
 	
-	public static boolean isTableExixts(String tableName) {
+	private static Connection c = null;
+	
+	public static boolean isTableExixts(String tableName) throws SQLException {
 		
 		try {
-			Connection c = ConnectionProvider.getConnectionProvider();
+			c = ConnectionProvider.getConnectionProvider();
 			DatabaseMetaData metaData = c.getMetaData();
 			ResultSet resultSet = metaData.getTables(null, null, tableName, new String[] {"TABLE"});
 			
 			while(resultSet.next()) {
+				c.close();
 				return true;
 			}
 			
+			c.close();
 			return false;
 		}
 		catch(Exception e) {
+			c.close();
 			System.out.println(e.getMessage());
 			return false;
 		}
