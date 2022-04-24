@@ -31,4 +31,25 @@ public class CreateSQLTable {
 			return false;
 		}
 	}
+	
+public boolean createProductTable() {
+		
+		try
+		{
+			s = c.createStatement();
+			
+			String q1 = "create table product(productID int, productName varchar(200), category varchar(200), price int, status varchar(10))"; 
+			
+			System.out.println(q1);
+			s.execute(q1);
+			System.out.println("Table created");
+			return true;
+			//c.close();
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
 }

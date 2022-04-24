@@ -27,12 +27,12 @@ try{
 			
 			String userType  = rs.getString("userType");
 			
-			session.setAttribute("user_type", userType);
+			session.setAttribute("email", email);
 			
 			c.close();
 			
 			if(userType.matches(UserConstant.ADMIN_USER.toString())) {
-				response.sendRedirect("/admin/adminHome.jsp");
+				response.sendRedirect("admin/adminHome.jsp");
 			}
 			else {
 				response.sendRedirect("home.jsp");

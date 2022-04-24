@@ -1,3 +1,7 @@
+<%@page import="project.ConnectionProvider"%>
+<%@page import="java.sql.*"%>
+<%@include file="adminHeader.jsp" %>
+<%@include file="../footer.jsp" %>
 
 <html>
 <head>
@@ -6,38 +10,75 @@
 </head>
 <body>
 
-<h3 class="alert">Product Added Successfully!</h3>
+<%
+  	String msg = request.getParameter("msg");
+  	if("success".equals(msg)) {
+  	%>
+  	<h3 class="alert">Product Added Successfully!</h3>
+  	<%} %>
+  	
+  	<%
+  	if("error".equals(msg)) {
+  	%>
+  	<h3>Something Went Wrong! Try Again !</h3>
+  	<%} %>
 
-<h3 class="alert">Some thing went wrong! Try Again!</h3>
+<%
+int id=1;
+try {
+	Connection c = ConnectionProvider.getConnectionProvider();
+	Statement s = c.createStatement();
+	ResultSet rs = s.executeQuery("select max(id) from product");
+	while(rs.next()) {
+		id = rs.getInt(1);
+		id = id+1;
+	}
+}
+catch(Exception e) {
+	System.out.println(e.getMessage());
+}
+%>
 
+<form action="addNewProductAction.jsp" method="post">
 
-<h3 style="color: yellow;">Product ID: </h3>
+<h3 style="color: yellow;">Product ID: <%out.println(id); %> </h3>
 
+<input type="hidden" name="id" value="<%out.println(id); %>">
 
 <div class="left-div">
- <h3>Enter Name</h3>
+	<h3>Enter Name</h3>
+	<input class="input-style" type="text" name="name" placeholder="Enter Name" required> 
  
-<hr>
+	<hr>
 </div>
 
 <div class="right-div">
-<h3>Enter Category</h3>
+	<h3>Enter Category</h3>
+	<input class="input-style" type="text" name="category" placeholder="Enter Category" required>
  
-<hr>
+	<hr>
 </div>
 
 <div class="left-div">
-<h3>Enter Price</h3>
+	<h3>Enter Price</h3>
+	<input class="input-style" type="number" name="price" placeholder="Enter Price" required>
  
-<hr>
+	<hr>
 </div>
 
 <div class="right-div">
-<h3>Active</h3>
+	<h3>Active</h3>
+	<select class="input-style" name="status">
+		<option value="Yes">Yes</option>
+		<option value="No">No</option>
+	</select>
    
-<hr>
+	<hr>
 </div>
- <i class='far fa-arrow-alt-circle-right'></i>
+
+<button class="button">Save <i class='far fa-arrow-alt-circle-right'></i></button>
+ 
+</form>
 
 </body>
 <br><br><br>

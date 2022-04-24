@@ -62,7 +62,7 @@ try{
 				
 				ps.executeUpdate();
 				
-				session.setAttribute("user_type", userType);
+				session.setAttribute("email", email);
 				c.close();
 				if(userType.matches(UserConstant.ADMIN_USER.toString())) {
 					response.sendRedirect("admin/adminHome.jsp");
