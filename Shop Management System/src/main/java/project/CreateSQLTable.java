@@ -52,4 +52,26 @@ public boolean createProductTable() {
 			return false;
 		}
 	}
+
+public boolean createCartTable() {
+	
+	try
+	{
+		s = c.createStatement();
+		
+		String q1 = "create table cart(email varchar(100), productId int, quantity int, price int, total int, address varchar(200), city varchar(50), state varchar(50), country varchar(50), mobileNumber bigint, orderDate varchar(30), deliveryDate varchar(30), paymentMethod varchar(30), transactionId varchar(50), status varchar(20))"; 
+		
+		System.out.println(q1);
+		s.execute(q1);
+		System.out.println("Table created");
+		return true;
+		//c.close();
+	}
+	catch(Exception e)
+	{
+		System.out.println(e.getMessage());
+		return false;
+	}
+}
+}
 }
