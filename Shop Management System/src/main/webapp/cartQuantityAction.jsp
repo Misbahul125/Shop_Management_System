@@ -11,12 +11,12 @@ try{
 	Statement s = c.createStatement();
 //	c.setAutoCommit(false);
 	
-	String q1 = "select * from cart where email='"+email+"' and productId="+id+" and address is NULL";
+	String q1 = "select * from cart where email='"+email+"' and productId="+id;
 	ResultSet rs1 = s.executeQuery(q1);
 	while(rs1.next()) {
-		price = rs1.getInt(4);
-		total = rs1.getInt(5);
-		quantity = rs1.getInt(3);
+		price = rs1.getInt(7);
+		total = rs1.getInt(8);
+		quantity = rs1.getInt(6);
 		
 	}
 	
@@ -29,7 +29,7 @@ try{
 	else if(quantity!=1 && action.equals("dec")) {
 		total = total-price;
 		quantity--;
-		q2 = "update cart set total="+total+", quantity="+quantity+" where email='"+email+"' and productId="+id+" and address is NULL";
+		q2 = "update cart set subTotal="+total+", quantity="+quantity+" where email='"+email+"' and productId="+id;
 		s.executeUpdate(q2);
 		c.close();
 		response.sendRedirect("myCart.jsp?msg=decreased");
@@ -37,7 +37,7 @@ try{
 	else {
 		total = total+price;
 		quantity++;
-		q2 = "update cart set total="+total+", quantity="+quantity+" where email='"+email+"' and productId="+id+" and address is NULL";
+		q2 = "update cart set subTotal="+total+", quantity="+quantity+" where email='"+email+"' and productId="+id;
 		s.executeUpdate(q2);
 		c.close();
 		response.sendRedirect("myCart.jsp?msg=increased");

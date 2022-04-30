@@ -59,7 +59,7 @@ try{
 	Connection c = ConnectionProvider.getConnectionProvider();
 	Statement s = c.createStatement();
 	 
-	String q1 = "select sum(total) from cart where email='"+email+"' and address is NULL";
+	String q1 = "select sum(subTotal) from cart where email='"+email+"'";
 
 	ResultSet rs1 = s.executeQuery(q1);
 	while(rs1.next()) {
@@ -87,19 +87,28 @@ try{
         </thead>
         <tbody>
       		<%
-      		String q2 = "select * from product inner join cart on product.id=cart.productId and cart.email='"+email+"' and cart.address is NULL";
+      		String q2 = "select * from cart where email='"+email+"'";
       		ResultSet rs2 = s.executeQuery(q2);
       		while(rs2.next()) {
       		%>
           <tr>
           <%sno = sno+1; %>
            <td><%out.println(sno); %></td>
-            <td><%=rs2.getString(2) %></td>
-            <td><%=rs2.getString(3) %></td>
-            <td><i class="fa fa-inr"></i> <%=rs2.getString(4) %></td>
-            <td><a href="cartQuantityAction.jsp?id=<%=rs2.getString(1) %>&quantity=inc"><i class='fas fa-plus-circle'></i></a> <%=rs2.getString(8) %> <a href="cartQuantityAction.jsp?id=<%=rs2.getString(1) %>&quantity=dec"><i class='fas fa-minus-circle'></i></a></td>
-            <td><i class="fa fa-inr"></i> <%=rs2.getString(10) %> </td>
-            <td><a href="removeCartProduct.jsp?id=<%= rs2.getString(1) %>">Remove <i class='fas fa-trash-alt'></i></a></td>
+            <td><%=rs2.getString(4) %></td>
+            <td><%=rs2.getString(5) %></td>
+            <td><i class="fa fa-inr"></i> <%=rs2.getString(7) %></td>
+            
+            <td>
+            <a href="cartQuantityAction.jsp?id=<%=rs2.getString(2) %>&quantity=inc">
+            <i class='fas fa-plus-circle'></i>
+            </a> 
+            <%=rs2.getString(6) %> 
+            <a href="cartQuantityAction.jsp?id=<%=rs2.getString(2) %>&quantity=dec">
+            <i class='fas fa-minus-circle'></i></a>
+            </td>
+            
+            <td><i class="fa fa-inr"></i> <%=rs2.getString(8) %> </td>
+            <td><a href="removeCartProduct.jsp?id=<%= rs2.getString(2) %>">Remove <i class='fas fa-trash-alt'></i></a></td>
           </tr>
 <%
       		}

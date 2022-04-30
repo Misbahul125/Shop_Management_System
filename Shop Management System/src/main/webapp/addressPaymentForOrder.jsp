@@ -26,7 +26,7 @@ try{
 	Connection c = ConnectionProvider.getConnectionProvider();
 	Statement s = c.createStatement();
 	 
-	String q1 = "select sum(total) from cart where email='"+email+"' and address is NULL";
+	String q1 = "select sum(subTotal) from cart where email='"+email+"'";
 
 	ResultSet rs1 = s.executeQuery(q1);
 	while(rs1.next()) {
@@ -52,19 +52,28 @@ try{
         <tbody>
         
         <%
-      		String q2 = "select * from product inner join cart on product.id=cart.productId and cart.email='"+email+"' and cart.address is NULL";
+        	String q2 = "select * from cart where email='"+email+"'";
       		ResultSet rs2 = s.executeQuery(q2);
       		while(rs2.next()) {
       	%>
         
           <tr>
           <%sno = sno+1; %>
-           <td><%out.println(sno); %></td>
-            <td><%=rs2.getString(2) %></td>
-            <td><%=rs2.getString(3) %></td>
-            <td><i class="fa fa-inr"></i> <%=rs2.getString(4) %></td>
-            <td><%=rs2.getString(8) %> </td>
-            <td><i class="fa fa-inr"></i> <%=rs2.getString(10) %></td>
+            <td><%out.println(sno); %></td>
+            <td><%=rs2.getString(4) %></td>
+            <td><%=rs2.getString(5) %></td>
+            <td><i class="fa fa-inr"></i> <%=rs2.getString(7) %></td>
+            
+            <td>
+            <a href="cartQuantityAction.jsp?id=<%=rs2.getString(2) %>&quantity=inc">
+            <i class='fas fa-plus-circle'></i>
+            </a> 
+            <%=rs2.getString(6) %> 
+            <a href="cartQuantityAction.jsp?id=<%=rs2.getString(2) %>&quantity=dec">
+            <i class='fas fa-minus-circle'></i></a>
+            </td>
+            
+            <td><i class="fa fa-inr"></i> <%=rs2.getString(8) %> </td>
             </tr>
          <%}
       		String q3 = "select * from users where email='"+email+"'";
@@ -77,7 +86,18 @@ try{
       
 <hr style="width: 100%">
 
-<form action="addressPaymentForOrderAction.jsp" method="post">
+<form action="addressPaymentForOrderAction.jsp?<%=total %>" method="post">
+
+<div class="left-div">
+<h3>Mobile Number</h3>
+<input class="input-style" type="number" name="mobileNumber" value="<%=rs3.getString(3) %>" placeholder="Enter Mobile Number" required>
+<h3 style="color: red">*This mobile number will also updated to your profile</h3>
+</div>
+
+<div class="right-div">
+<h3>Enter pincode</h3>
+	<input class="input-style" type="number" name="pincode" value="<%=rs3.getInt(12) %>" placeholder="Enter Pincode" required>
+</div>
 
  <div class="left-div">
  <h3>Enter Address</h3>
@@ -110,22 +130,24 @@ try{
 </div>
 
 <div class="right-div">
-<h3>Pay online on this btechdays@pay.com</h3>
-<input class="input-style" type="text" name="transactionId" placeholder="Enter Transaction ID">
-<h3 style="color: red">*If you select online Payment then enter you transaction ID here otherwise leave this blank</h3>
-</div>
-<hr style="width: 100%">
-
-<div class="left-div">
-<h3>Mobile Number</h3>
-<input class="input-style" type="number" name="mobileNumber" value="<%=rs3.getString(3) %>" placeholder="Enter Mobile Number" required>
-<h3 style="color: red">*This mobile number will also updated to your profile</h3>
-</div>
-<div class="right-div">
 <h3 style="color: red">*If you enter wrong transaction id then your order will we can cancel!</h3>
 <button class="input-style" type="submit"> Proceed to Order & Generate Bill <i class='far fa-arrow-alt-circle-right'></i></button>
 <h3 style="color: red">*Fill form correctly</h3>
 </div>
+
+<!-- <div class="right-div">
+<h3>Pay online on this btechdays@pay.com</h3>
+<input class="input-style" type="text" name="transactionId" placeholder="Enter Transaction ID">
+<h3 style="color: red">*If you select online Payment then enter you transaction ID here otherwise leave this blank</h3>
+</div> -->
+<!-- <hr style="width: 100%">
+ -->
+
+<!-- <div class="right-div">
+<h3 style="color: red">*If you enter wrong transaction id then your order will we can cancel!</h3>
+<button class="input-style" type="submit"> Proceed to Order & Generate Bill <i class='far fa-arrow-alt-circle-right'></i></button>
+<h3 style="color: red">*Fill form correctly</h3>
+</div> -->
 </form>
 
 <%
